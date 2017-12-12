@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title></title>
+		<style type="text/css">
+
+			.floating-text-2 {
+     			display:inline;
+     			text-align: right;
+     			margin-right: 30px;
+
+   			}
+			.floating-text {
+     			display: inline;
+     			margin-right: 10px;
+
+   
+			}
+
+			 html{
+				  height:100%;
+				  margin:0;
+				  font-size:16px;
+				  font-family:"Lato", sans-serif;
+				  font-weight:400;
+				  line-height:1.8em;
+				  color:#666;
+				}
+
+			body{
+			    text-align:center;
+				height:100%;
+  				margin:0;
+  				min-height:100%;
+  				color: white;
+
+			}
+			table{
+					border-bottom:6px solid red;
+				    border-collapse: collapse;
+				    border-top:6px solid red;
+				    margin: auto;
+				    border:1;
+				    margin-bottom:50px;
+
+					}
+				th{
+					border-bottom: 6px solid rgba(255, 99, 71, 0.8);
+					height: 200px;
+					width:200px;
+				    padding: 0px;
+					border: 1px solid black;
+					z-index: 1;
+					position:relative;
+					
+				}	
+				h4{
+					margin: 0px;
+				}
+				
+				img{
+
+					width:200px;
+					height:200px;
+				}
+
+			.pimg1{
+				  position:relative;
+				  opacity:8;
+				  background-position:center;
+				  background-size:cover;
+				  background-repeat:no-repeat;
+
+				  /*
+				    fixed = parallax
+				    scroll = normal
+				  */
+				  background-attachment:fixed;
+				}
+
+			.pimg1{
+ 				 	background-image:url('image3.jpg');
+  					min-height:100%;
+				}
+		</style>
+	</head>
+<body>
+	<div class="pimg1">
+    <div class="ptext">
+  	<h4 id="dealerCards">Dealer's cards:</h4>
+	<table>
+		<tr>
+			<th></th>
+			<th></th>
+			<th></th>
+			<th></th>
+			<th></th>
+		</tr>
+		<tr>
+			<th></th>
+			<th></th>
+			<th></th>
+			<th></th>
+			<th></th>
+		</tr>
+	</table>
+		<h4 id="yourCards">Your cards:</h4>
+		<div class="container-1">
+			<h1 class="floating-text-2" id="head"></h1>
+			<h2 class="floating-text-2" id="bitResult"></h2>
+		</div>
+		<div class="container-2">
+			<h3 class="floating-text" id="bitText">  You have:$</h3>
+			<h3 class="floating-text" id="bitAmount"></h3>
+			<h3 class="floating-text">Your bet:</h3>
+			<input type="number" class="floating-box" id="betHolder" placeholder="Enter Your Bet" value="5">
+		</div>
+		
+		
+		
+		<input type="button" value="Hit" onclick="hit()">
+		<input type="button" value="Stay" onclick="stay()" >
+		<input type="button" value="Next Round" onclick="start()">
+	
+		<script>
+			var deck=['A','2','3','4','5','6','7','8','9','10','J','Q','K'] 
+			var board = document.getElementsByTagName('th');
+			document.getElementById("bitAmount").innerHTML=1000;
+			var DealerArray=[];
+			var YourArray=[];
+			var dealerSum=0;
+			var yourSum=0;			
+			var pass=false;
+
+			function start(){
+				var bitH=parseInt(document.getElementById("betHolder").value);
+				pass=false;
+				DealerArray.length=0;
+			    YourArray.length=0 ;
+				for(i=0;i<10;i++){
+					board[i].innerHTML="";
+				}
+				document.getElementById("head").innerHTML="";
+				document.getElementById("dealerCards").innerHTML="Dealer's Cards total:--";
+				document.getElementById("yourCards").innerHTML="Your Cards total:--";
+				document.getElementById("bitResult").innerHTML="";
+
+				DealerArray.push(deck[parseInt(Math.random()*13)]);
+				DealerArray.push(deck[parseInt(Math.random()*13)]);
+				YourArray.push(deck[parseInt(Math.random()*13)]);
+				YourArray.push(deck[parseInt(Math.random()*13)]);
+				vHit=7;
+
+				for(var i=0;i<DealerArray.length;i++){
+					if(DealerArray[i]=='Q'){
+						var d1 = document.createElement("IMG");
+			    		 d1.setAttribute("src", "queen.jpg");
+						 board[i].appendChild(d1);
+					}else if(DealerArray[i]=='K'){
+						var d1 = document.createElement("IMG");
+			    		 d1.setAttribute("src", "king.jpg");
+						 board[i].appendChild(d1);
+					}else if(DealerArray[i]=='J'){
+						var d1 = document.createElement("IMG");
+			    		 d1.setAttribute("src", "jack.jpg");
+						 board[i].appendChild(d1);
+					}else if(DealerArray[i]=='A'){
+						var d1 = document.createElement("IMG");
+			    		 d1.setAttribute("src", "one.jpg");
+						 board[i].appendChild(d1);
+					}else if(DealerArray[i]==2){
+						var d1 = document.createElement("IMG");
+			    		 d1.setAttribute("src", DealerArray[i]+".png");
+						 board[i].appendChild(d1);
+					}else if(DealerArray[i]==3){
+						var d1 = document.createElement("IMG");
+			    		 d1.setAttribute("src", DealerArray[i]+".jpg");
+						 board[i].appendChild(d1);
+					}else if(DealerArray[i]==4){
+						var d1 = document.createElement("IMG");
+			    		 d1.setAttribute("src", DealerArray[i]+".jpg");
+						 board[i].appendChild(d1);
+					}else if(DealerArray[i]==5){
+						var d1 = document.createElement("IMG");
+			    		 d1.setAttribute("src", DealerArray[i]+".png");
+						 board[i].appendChild(d1);
+					}else if(DealerArray[i]==6){
+						var d1 = document.createElement("IMG");
+			    		 d1.setAttribute("src", DealerArray[i]+".png");
+						 board[i].appendChild(d1);
+					}else if(DealerArray[i]==7){
+						var d1 = document.createElement("IMG");
+			    		 d1.setAttribute("src", DealerArray[i]+".png");
+						 board[i].appendChild(d1);
+					}else if(DealerArray[i]==8){
+						var d1 = document.createElement("IMG");
+			    		 d1.setAttribute("src", DealerArray[i]+".jpg");
+						 board[i].appendChild(d1);
+					}else if(DealerArray[i]==9){
+						var d1 = document.createElement("IMG");
+			    		 d1.setAttribute("src", DealerArray[i]+".png");
+						 board[i].appendChild(d1);
+					}else if(DealerArray[i]==10){
+						var d1 = document.createElement("IMG");
+			    		 d1.setAttribute("src", DealerArray[i]+".jpg");
+						 board[i].appendChild(d1);
+					}
+
+				}//end dealer for loop pics
+
+				//start your card for loop pics
+				var j=5;
+				for(var i=0;i<YourArray.length;i++){
+					if(YourArray[i]=='Q'){
+						var d1 = document.createElement("IMG");
+			    		 d1.setAttribute("src", "queen.jpg");
+						 board[j].appendChild(d1);
+					}else if(YourArray[i]=='K'){
+						var d1 = document.createElement("IMG");
+			    		 d1.setAttribute("src", "king.jpg");
+						 board[j].appendChild(d1);
+					}else if(YourArray[i]=='J'){
+						var d1 = document.createElement("IMG");
+			    		 d1.setAttribute("src", "jack.jpg");
+						 board[j].appendChild(d1);
+					}else if(YourArray[i]=='A'){
+						var d1 = document.createElement("IMG");
+			    		 d1.setAttribute("src", "one.jpg");
+						 board[j].appendChild(d1);
+					}else if(YourArray[i]==2){
+						var d1 = document.createElement("IMG");
+			    		 d1.setAttribute("src", YourArray[i]+".png");
+						 board[j].appendChild(d1);
+					}else if(YourArray[i]==3){
+						var d1 = document.createElement("IMG");
+			    		 d1.setAttribute("src", YourArray[i]+".jpg");
+						 board[j].appendChild(d1);
+					}else if(YourArray[i]==4){
+						var d1 = document.createElement("IMG");
+			    		 d1.setAttribute("src", YourArray[i]+".jpg");
+						 board[j].appendChild(d1);
+					}else if(YourArray[i]==5){
+						var d1 = document.createElement("IMG");
+			    		 d1.setAttribute("src", YourArray[i]+".png");
+						 board[j].appendChild(d1);
+					}else if(YourArray[i]==6){
+						var d1 = document.createElement("IMG");
+			    		 d1.setAttribute("src", YourArray[i]+".png");
+						 board[j].appendChild(d1);
+					}else if(YourArray[i]==7){
+						var d1 = document.createElement("IMG");
+			    		 d1.setAttribute("src", YourArray[i]+".png");
+						 board[j].appendChild(d1);
+					}else if(YourArray[i]==8){
+						var d1 = document.createElement("IMG");
+			    		 d1.setAttribute("src", YourArray[i]+".jpg");
+						 board[j].appendChild(d1);
+					}else if(YourArray[i]==9){
+						var d1 = document.createElement("IMG");
+			    		 d1.setAttribute("src", YourArray[i]+".png");
+						 board[j].appendChild(d1);
+					}else if(YourArray[i]==10){
+						var d1 = document.createElement("IMG");
+			    		 d1.setAttribute("src", YourArray[i]+".jpg");
+						 board[j].appendChild(d1);
+					}
+					j++;
+				}//end your cards for loop pics
+				calcuater()
+			}
+			
+		function calcuater(){
+			  //dealer calcuation
+			var dealerValue=[];
+			yourValue=[];
+			for(var i=0;i<DealerArray.length;i++){
+				if(DealerArray[i]=='Q'|| DealerArray[i]=='J'||DealerArray[i]=='K'){
+					dealerValue.push(10);
+				}else if(DealerArray[i]!='A'){
+					dealerValue.push(parseInt(DealerArray[i]));
+				}
+			}//end dealer cards calcuation
+			//  Calculate Dealer A(1-11)
+			dealerSum=0;
+			for(var i=0;i<dealerValue.length;i++){
+				dealerSum=dealerSum+dealerValue[i];
+			}
+
+			for(i=0;i<DealerArray.length;i++){
+				if(DealerArray[i]=='A' && (dealerSum+11<=21)){
+					dealerSum+=11;
+				}else if (DealerArray[i]=='A' && (dealerSum+1<=21)){
+					dealerSum+=1;
+				}
+			}//end calculation Dealer A(1-11)
+
+			//Your cards  calculation
+			for(var i=0;i<YourArray.length;i++){
+				if(YourArray[i]=='Q'||YourArray[i]=='J'||YourArray[i]=='K'){
+					yourValue.push(10);			
+				}else if(YourArray[i]!='A'){
+					yourValue.push(parseInt(YourArray[i]));	
+				}
+			}
+			// Calculate A(1-11)
+			yourSum=0;
+			for(var i=0;i<yourValue.length;i++){
+				yourSum+=yourValue[i];
+			}
+
+			for(i=0;i<YourArray.length;i++){
+				if(YourArray[i]=='A' && (yourSum+11<=21)){
+					yourSum+=11;
+				}else if(YourArray[i]=='A' && (yourSum+1<=21)){
+					yourSum+=1;
+				}
+			}//end calculation A(1-11)
+			document.getElementById("yourCards").innerHTML="Your Cards total: "+yourSum;
+		
+			var bitA=parseInt(document.getElementById('bitAmount').innerHTML);
+			var bitH=parseInt(document.getElementById('betHolder').value);
+
+		if (Number.isNaN(bitH)!=true && bitH>0){
+			if(yourSum>=21 || dealerSum>=21 || pass ==true ){
+				document.getElementById("yourCards").innerHTML="Your Cards total: "+yourSum;
+				document.getElementById("dealerCards").innerHTML="Dealer's Cards total: "+parseInt(dealerSum);
+				var win=false;
+				if (dealerSum==yourSum){
+					document.getElementById('head').innerHTML="TIE, Try again";
+				}else if (yourSum <= 21 && (21-yourSum)<(21-dealerSum)){
+					document.getElementById('head').innerHTML="Congratulation You Win";
+					win=true;
+				}else if (dealerSum <= 21 && (21-dealerSum)<(21-yourSum) ){
+					document.getElementById('head').innerHTML="Dealer win";
+					win=false;
+				}
+
+				if(dealerSum>21){
+					document.getElementById('head').innerHTML="Congratulation You Win... dealer went over 21";
+					win=true;
+				}
+			
+				if(yourSum>21){
+					document.getElementById('head').innerHTML="  You lost. You went over 21";
+					win=false;
+				}
+
+				//remainMoney--bitAmount
+				var bitA=parseInt(document.getElementById('bitAmount').innerHTML);
+				var bitH=parseInt(document.getElementById('betHolder').value);
+
+				if(dealerSum==yourSum){
+					console.log("bita"+dealerSum);
+					document.getElementById('bitResult').innerHTML="You earn $ --" ;
+				}else if((win==true) && (dealerSum!=yourSum)){
+					console.log("bita"+dealerSum);
+					document.getElementById('bitResult').innerHTML="You earn $"+bitH;
+					bitA=bitA+bitH;
+					document.getElementById("bitAmount").innerHTML=parseInt(bitA);
+					console.log("bita bitH"+bitA,bitH)
+				}else if((win==false) && (dealerSum!=yourSum)){
+					console.log("bita"+dealerSum);
+					document.getElementById('bitResult').innerHTML="You lost $"+bitH;
+					bitA=bitA-bitH;
+					document.getElementById("bitAmount").innerHTML=parseInt(bitA);
+					console.log("bita bitH"+bitA,bitH)
+				}
+			}
+		}else{
+		 	confirm("Please Enter your bit!");
+		 	document.getElementById("betHolder").value="";
+		 	}//end of if bitH>0
+	}//function
+
+
+		function hit(){
+			var bitH=parseInt(document.getElementById("betHolder").value);
+			if (Number.isNaN(bitH)!=true && bitH>0){
+				var ranNo=deck[parseInt(Math.random()*13)];
+				YourArray.push(ranNo);
+				if(ranNo=='Q'){
+					var d1 = document.createElement("IMG");
+		    		d1.setAttribute("src", "queen.jpg");
+					board[vHit++].appendChild(d1);
+				}else if(ranNo=='K'){
+					var d1 = document.createElement("IMG");
+		    		d1.setAttribute("src", "king.jpg");
+					board[vHit++].appendChild(d1);
+				}else if(ranNo=='J'){
+					var d1 = document.createElement("IMG");
+		    		d1.setAttribute("src", "jack.jpg");
+					board[vHit++].appendChild(d1);
+				}else if(ranNo=='A'){
+					var d1 = document.createElement("IMG");
+		    		d1.setAttribute("src", "one.jpg");
+					board[vHit++].appendChild(d1);
+				}else if(ranNo==2){
+					var d1 = document.createElement("IMG");
+		    		d1.setAttribute("src", ranNo+".png");
+					board[vHit++].appendChild(d1);
+				}else if(ranNo==3){
+					var d1 = document.createElement("IMG");
+		    		d1.setAttribute("src", ranNo+".jpg");
+					board[vHit++].appendChild(d1);
+				}else if(ranNo==4){
+					var d1 = document.createElement("IMG");
+		    		d1.setAttribute("src", ranNo+".jpg");
+					board[vHit++].appendChild(d1);
+				}else if(ranNo==5){
+					var d1 = document.createElement("IMG");
+		    		d1.setAttribute("src", ranNo+".png");
+					board[vHit++].appendChild(d1);
+				}else if(ranNo==6){
+					var d1 = document.createElement("IMG");
+		    		d1.setAttribute("src", ranNo+".png");
+					board[vHit++].appendChild(d1);
+				}else if(ranNo==7){
+					var d1 = document.createElement("IMG");
+		    		d1.setAttribute("src", ranNo+".png");
+					board[vHit++].appendChild(d1);
+				}else if(ranNo==8){
+					var d1 = document.createElement("IMG");
+		    		d1.setAttribute("src", ranNo+".jpg");
+					board[vHit++].appendChild(d1);
+				}else if(ranNo==9){
+					var d1 = document.createElement("IMG");
+		    		d1.setAttribute("src", ranNo+".png");
+					board[vHit++].appendChild(d1);
+				}else if(ranNo==10){
+					var d1 = document.createElement("IMG");
+		    		d1.setAttribute("src", ranNo+".jpg");
+					board[vHit++].appendChild(d1);
+				}
+			}else{
+				confirm("Please Enter your bit!");
+				document.getElementById("bitHolder").value="";
+				}
+
+		calcuater()
+
+		}
+
+		function stay(){
+			pass =true;
+			calcuater()
+			console.log('hi');
+		}//end stay function
+		
+		start();
+	</script>
+  </div>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+    <link href="https://fonts.googleapis.com/css?family=Great+Vibes" rel="stylesheet">
+
+    <style type="text/css">
+      *{
+        box-sizing: border-box;
+      }
+
+        body{
+          text-align: center;
+
+          font-family:Calibri, sans-serif;
+           /*font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;*/
+          font-size:1rem;
+          font-weight:normal;
+          line-height:1.5;
+          color:#333;
+          overflow-x:hidden;
+        }
+        h2{
+          font-size: 30px;
+          font-family:Palatino Linotype;
+          color:#990000;
+        }
+        h1{
+          font-size: 100px;
+          font-family: 'Great Vibes', cursive; 
+          color: #990000;
+          text-shadow: 1px 1px 2px black, 0 0 25px red, 0 0 5px darkred;
+
+
+        }
+
+        table{
+          margin: auto;
+          width:75%;
+        }
+
+        th {
+          border-bottom: 6px solid rgba(255, 99, 71, 0.8);
+          alignment-baseline: central;
+          padding: 10px;
+          text-align: center;
+          height: 30px;
+          background-color:lightgrey;
+          color: black;
+          font-weight:normal;
+
+
+        }
+        
+        td {
+          padding: 5px;
+          height: 30px;
+        }   
+
+        #col1,#col2{
+          border-radius: 4px;
+          width: 30%;
+          padding: 20px 30px;
+          margin: 8px 0;
+          display: inline-block;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+          box-sizing: border-box; 
+          padding: 5px;
+          margin: 5px;
+
+        } 
+
+        #button1{
+          margin-right:40px;
+          background-color:rgba(255, 99, 71, 0.8); /*rgb(9, 12, 253);*/
+          color: white;
+          padding: 14px 20px;
+          margin: 8px 0;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+          font-family:Calibri, sans-serif;
+          font-weight: normal;
+          font-size: 20px;
+        } 
+  
+        .v-header{
+          height:100vh;
+          display:flex;
+          align-items:center;
+          color:#fff;
+        }
+
+        .container{
+          max-width:960px;
+          padding-left:1rem;
+          padding-right:1rem;
+          margin:auto;
+          font-size: 20px;
+        }
+
+        .container_B{
+          max-width:960px;
+          padding-left:1rem;
+          padding-right:1rem;
+          margin:auto;
+          text-align:center;
+          font-size: 20px;
+          background-color:rgba(253, 255, 253, 0.8);
+          box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+        }
+
+        .fullscreen-video-wrap{
+          position:absolute;
+          top:0;
+          left:0;
+          width:100%;
+          height:100%;
+          overflow:hidden;
+        }
+
+        .fullscreen-video-wrap video{
+          min-height:100%;
+          min-width:100%;
+        }
+
+        .header-overlay{
+          height:100vh;
+          position: absolute;
+          top:0;
+          left:0;
+          width:100vw;
+          z-index:1;
+          background:#f0f0f0;
+          opacity:0.00;
+
+        }
+
+        .header-content{
+          z-index:2;
+          margin: auto;
+
+        }
+
+        .headder-content h1{
+          font-size:50px;
+          margin-bottom:0;
+
+        }
+
+        .header-content p{
+          font-size:1.5rem;
+          display:block;
+          padding-bottom:2rem;
+          text-align: center;
+        }
+
+        .btn{
+          background: rgba(255, 99, 71, 0.6);
+          color:#fff;
+          font-size:1.2rem;
+          padding: 1rem 2rem;
+          text-decoration: none;
+        }
+
+        .btn:hover{
+          background-color: #990000;
+
+        }
+      
+        .section{
+          padding:20px 0;
+
+        }
+       
+        .section-b{
+          z-index:1;
+          background-image:url(sb2.jpg);
+          background-size:cover;
+          color:black;
+          
+
+        }
+
+        @media(max-width:960px){
+          .container{
+            padding-right:3rem;
+            padding-left:3rem;
+          }
+        }
+    </style>
+        <header class="v-header container">
+          <div class="fullscreen-video-wrap">
+              <video src="Vbg3.mp4" autoplay="" loop="">
+              </video>
+          </div>
+          <div class="header-overlay"></div>
+          <div class="header-content text-md-center">
+            <h2>Welcome to</h2>
+            <h1>The Rose Restaurant</h1>
+            <p>Fun & food obsessed restaurant professional</p>
+            <a href="#sa" class="btn">Find Out More</a>
+          </div>
+        </header>
+
+  </head>
+
+<body>
+      <script type="text/javascript">
+      
+      var arobj=[];
+      var pos=0;
+      var empty=true;
+      
+      function insertRow(){
+
+          if(document.getElementById('col1').value!='' && document.getElementById('col2').value!='' && parseInt(document.getElementById('col1').value)!=NaN && parseInt(document.getElementById('col2').value)!=NaN && document.getElementById('col1').value.match(/^[a-zA-Z]+$/) && document.getElementById('col2').value.match(/^[a-zA-Z]+$/) ){
+          if (document.getElementsByTagName("td")[0].innerHTML=="There is no customer waiting to be served!"){ 
+            document.getElementById("myTable").deleteRow(-1);
+            }
+          var name=document.getElementById('col1').value;
+          var order=document.getElementById('col2').value; 
+          var pos=arobj.push({Cusname:name,CusOrder:order});
+
+          var trTag = document.createElement("tr");
+          var tdNode1 = document.createElement("td");
+          var tdNode2 = document.createElement("td");
+          var tdNode3 = document.createElement("td");
+
+          var CValue1=pos;
+          var CValue2=document.getElementById('col1').value;
+          var CValue3=document.getElementById('col2').value;
+          
+          tdNode1.innerHTML=CValue1;
+          tdNode2.innerHTML=CValue2.charAt(0).toUpperCase()+CValue2.slice(1).toLowerCase();
+          tdNode3.innerHTML=CValue3.charAt(0).toUpperCase()+CValue3.slice(1).toLowerCase();
+        
+          trTag.appendChild(tdNode1);
+          trTag.appendChild(tdNode2);
+          trTag.appendChild(tdNode3);
+
+          var Parentelement = document.getElementById("myTable");
+          Parentelement.appendChild(trTag);
+           document.getElementById('col1').value='';
+          document.getElementById('col2').value=''; 
+        }else{
+              confirm("Please Enter customer name and customer order!");
+              empty=true;
+              document.getElementById('col1').value='';
+              document.getElementById('col2').value='';               
+          }
+      }
+
+      function deleteRow(){
+
+        //if table row index is 0(head)and 1 (there is no custmer ) DO NOT DELETE
+        var tdNo = document.getElementsByTagName('td');
+        document.getElementById("servedCus").innerHTML=arobj[0].Cusname+"  has been served "+arobj[0].CusOrder;
+        arobj.shift();
+        if (arobj.length !=0){
+          document.getElementById("myTable").deleteRow(1);
+          var j=1
+          for(var i=0;i<tdNo.length;i+=3){
+            tdNo[i].innerHTML=j++;
+          }
+        }else {
+          document.getElementById("myTable").deleteRow(1);
+          var trTag = document.createElement("tr");
+          var tdNodempty1 = document.createElement("td");
+          
+          trTag.appendChild(tdNodempty1);
+
+          
+          var Parentelement = document.getElementById("myTable");
+          Parentelement.appendChild(trTag);
+
+          document.getElementsByTagName("td")[0].setAttribute("colspan", "3"); 
+          document.getElementsByTagName("td")[0].innerHTML="There is no customer waiting to be served!"; 
+        }
+        
+      }
+    </script>
+  <section id="sa" class="section section-a">
+    <div class="container">
+      <h2>The Rose Restaurant</h2>
+      <p>Our staff welcomes you at the venerable Building at the Europaplatz from the early mornings until late at night with healthy enjoyment from the Hiltl buffet Freshly pressed juices, homemade iced teas & lemonades, delicious coffee & tea specialities.  All the vegetarian and vegan delicacies can be enjoyed in-house or to-go at the train, bus or in the classrooms!</p>
+    </div>
+  </section>
+
+
+  <section class="section section-b">
+    <div class="container_B">
+      <h2> Make Order    </h2>
+      <p>APPETIZERS: Our Famous Chicken Soup, Split Pea Soup, Arugula & Avocado Salad, A Bowl of Chili. <br>
+        ENTRÉES: Spaghetti & Housemade Meatballs, Claypot Salmon, Shrimp Kebab, Steak Frites. <br>
+        ENTRÉE SALADS: Kale Caesar Salad, Chinese Chicken Salad Cobb Salad.<br>
+        BURGERS: Old-Fashioned Brooklyn Burger, Cheeseburger with Hot Pastrami, Guacamole Burger.<br>
+        SANDWICHES: Our Hot Pastrami on Rye,Turkey Reuben.
+      
+       </p>
+
+    Customer Name:<input type="text" id="col1" placeholder="Enter Customer Name">
+    Customer Order:<input type="text" id="col2" placeholder="Enter Customer Order"><br>
+    <h3 id="servedCus" ></h3>
+    <input type="button" id ="button1" onclick="insertRow()" value="Insert Customer">
+    <input type="button" id ="button1" onclick="deleteRow()" value="Customer Served">
+    <table id="myTable" border="1">
+      <tr>
+        <th>Pos.</th>
+        <th>Customer Name</th>
+        <th>Customer Order</th>
+      </tr>
+      <tr>
+        <td id ="span" colspan="3" >There is no customer waiting to be served!</td>
+         
+
+      </tr>
+    </table><br>
+
+    </div>
+  </section>
+<section class="section section-c">
+    <div class="container">
+      <h2>Contact us now!</h2>
+      <p> tel. 1-234-567-8901<br>
+          info@Theroseresestaurant.com<br>
+
+          1111 Main AVE<br>
+          BROOKLYN NY, 11111<br>
+        </p>
+    </div>
+  </section>
+
+  
+  </body>
+  </html>
